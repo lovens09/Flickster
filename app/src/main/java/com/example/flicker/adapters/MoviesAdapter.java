@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.flicker.R;
@@ -56,12 +57,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
         public ViewHolder(View itemView){
             super(itemView);
-            Title1=itemView.findViewById(R.id.Title1);
+            Title1=itemView.findViewById(R.id.Title1); 
             Overview1=itemView.findViewById(R.id.Overview1);
             Poster1=itemView.findViewById(R.id.Poster1);
         }
 
-        public void bind(Movie movie) {
+        public void bind(final Movie movie) {
             Title1.setText(movie.getTitle());
             Overview1.setText(movie.getOverview());
             //Reference to backdrop path when phone is in landscape mode
@@ -71,6 +72,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
                 imageUrl = movie.getBackdropPath();
             }
             Glide.with(context).load(imageUrl).into(Poster1);
+            Title1.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Toast.makeText(context, movie.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
 
         }
     }

@@ -1,6 +1,7 @@
 package com.example.flicker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.flicker.DetailActivity;
 import com.example.flicker.R;
 import com.example.flicker.models.Movie;
 
@@ -54,12 +56,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         TextView Title1;
         TextView Overview1;
         ImageView Poster1;
+        RelativeLayout container;
 
         public ViewHolder(View itemView){
             super(itemView);
             Title1=itemView.findViewById(R.id.Title1); 
             Overview1=itemView.findViewById(R.id.Overview1);
             Poster1=itemView.findViewById(R.id.Poster1);
+            container = itemView.findViewById(R.id.container);
         }
 
         public void bind(final Movie movie) {
@@ -72,12 +76,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
                 imageUrl = movie.getBackdropPath();
             }
             Glide.with(context).load(imageUrl).into(Poster1);
-            Title1.setOnClickListener(new View.OnClickListener(){
+            //Add click listener on the whole row
+            container.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    Toast.makeText(context, movie.getTitle(), Toast.LENGTH_SHORT).show();
+                  //navigate kto detail activity on tap
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("title", movie.getTitle());
+                    context.startActivity(i);
                 }
-
             });
 
         }

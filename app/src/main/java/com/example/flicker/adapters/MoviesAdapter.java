@@ -18,6 +18,8 @@ import com.example.flicker.DetailActivity;
 import com.example.flicker.R;
 import com.example.flicker.models.Movie;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
@@ -82,7 +84,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
                 public void onClick(View view){
                   //navigate kto detail activity on tap
                     Intent i = new Intent(context, DetailActivity.class);
-                    i.putExtra("title", movie.getTitle());
+                    i.putExtra("movie", Parcels.wrap(movie));
                     context.startActivity(i);
                 }
             });
